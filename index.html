@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habitask - Your Little Habbit Buddy 💜</title>
+  <meta name="description" content="An elegant, interactive, and aesthetic purple weekly habit tracker and task planner designed to keep you organized. Track habits, plan daily tasks, set weekly goals, and view analytics.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Auth Screen Wrapper (Login & Sign Up Portal) -->
+  <div class="auth-screen-wrapper" id="auth-screen-wrapper">
+    <div class="auth-ambient-glow"></div>
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo-badge">💜</div>
+        <h1 class="auth-brand-title">Habitask</h1>
+        <p class="auth-brand-tagline">Your Weekly Habit Tracker & Task Planner</p>
+      </div>
+
+      <!-- Auth Navigation Tabs -->
+      <div class="auth-tabs" id="auth-tabs" role="tablist">
+        <button class="auth-tab-btn active" id="tab-btn-signin" type="button" role="tab" aria-selected="true">
+          Sign In
+        </button>
+        <button class="auth-tab-btn" id="tab-btn-signup" type="button" role="tab" aria-selected="false">
+          Create Account
+        </button>
+      </div>
+
+      <!-- Auth Notification / Alert Box -->
+      <div class="auth-alert" id="auth-alert" style="display: none;" role="alert"></div>
+
+      <!-- Sign In Form -->
+      <form class="auth-form" id="form-signin">
+        <div class="form-group">
+          <label for="signin-email">Email or Username</label>
+          <div class="input-with-icon">
+            <span class="input-icon">👤</span>
+            <input type="text" class="input-field" id="signin-email" placeholder="name@example.com or username" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signin-password">Password</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🔒</span>
+            <input type="password" class="input-field" id="signin-password" placeholder="Enter your password" required autocomplete="current-password">
+            <button type="button" class="btn-toggle-password" id="btn-toggle-signin-password" aria-label="Toggle password visibility">👁️</button>
+          </div>
+        </div>
+
+        <div class="auth-options-row">
+          <label class="remember-checkbox-label">
+            <input type="checkbox" id="signin-remember" checked>
+            <span>Remember me on this device</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-auth-submit" id="btn-submit-signin">
+          Sign In to Habitask
+        </button>
+
+        <div class="auth-divider">
+          <span>or explore instantly</span>
+        </div>
+
+        <button type="button" class="btn btn-guest" id="btn-continue-guest">
+          ✨ Continue as Guest (Quick Demo)
+        </button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form class="auth-form" id="form-signup" style="display: none;">
+        <div class="form-group">
+          <label for="signup-name">Your Full Name</label>
+          <div class="input-with-icon">
+            <span class="input-icon">✨</span>
+            <input type="text" class="input-field" id="signup-name" placeholder="e.g. Wish" required autocomplete="name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-email">Email or Username</label>
+          <div class="input-with-icon">
+            <span class="input-icon">✉️</span>
+            <input type="text" class="input-field" id="signup-email" placeholder="e.g. user@example.com" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password">Create Password</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🔒</span>
+            <input type="password" class="input-field" id="signup-password" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+            <button type="button" class="btn-toggle-password" id="btn-toggle-signup-password" aria-label="Toggle password visibility">👁️</button>
+          </div>
+          <div class="password-strength-container" id="password-strength-container">
+            <div class="strength-track">
+              <div class="strength-meter" id="strength-meter"></div>
+            </div>
+            <span class="strength-feedback" id="strength-feedback">Minimum 6 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-confirm-password">Confirm Password</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🔒</span>
+            <input type="password" class="input-field" id="signup-confirm-password" placeholder="Repeat your password" required autocomplete="new-password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Choose Profile Avatar Character</label>
+          <div class="avatar-emoji-selector" id="signup-emoji-selector">
+            <!-- Aesthetic & Iconic -->
+            <button type="button" class="emoji-pick-btn selected" data-emoji="💜" title="Purple Heart - Mindful & Aesthetic">💜</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="✨" title="Sparkle - Inspiring & Creative">✨</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🔮" title="Crystal Ball - Visionary & Intuitive">🔮</button>
+            
+            <!-- Soft Character Types -->
+            <button type="button" class="emoji-pick-btn" data-emoji="🌸" title="Cherry Blossom - Gentle & Calm">🌸</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🦋" title="Butterfly - Evolving & Free Spirit">🦋</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="☕" title="Coffee - Cozy & Deep Thinker">☕</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🐱" title="Cat - Quiet Observer & Independent">🐱</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🌙" title="Crescent Moon - Peaceful Dreamer">🌙</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🦄" title="Unicorn - Unique & Magical">🦄</button>
+
+            <!-- Hard & Bold Character Types -->
+            <button type="button" class="emoji-pick-btn" data-emoji="🦁" title="Lion - Bold Leader & Fearless">🦁</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🐺" title="Wolf - Loyal & Resilient">🐺</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🔥" title="Fire - Passionate & High Energy">🔥</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="⚡" title="Lightning - Dynamic & Fast">⚡</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="⚔️" title="Swords - Disciplined Warrior">⚔️</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="👑" title="Crown - Ambitious Achiever">👑</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🚀" title="Rocket - Unstoppable Growth">🚀</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🎯" title="Bullseye - Laser Focused">🎯</button>
+            <button type="button" class="emoji-pick-btn" data-emoji="🧠" title="Brain - Strategic Mastermind">🧠</button>
+          </div>
+          <input type="hidden" id="signup-selected-emoji" value="💜">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-auth-submit" id="btn-submit-signup">
+          Create Account & Start Planning
+        </button>
+
+        <p class="auth-switch-prompt">
+          Already have an account? <a href="#" id="link-to-signin">Sign In</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cover Image Banner -->
+  <div class="cover-wrapper" id="page-cover-wrapper">
+    <img src="notion_cover_purple.png" alt="Aesthetic Purple cover design banner" class="cover-image" id="page-cover-img">
+  </div>
+
+  <div class="app-container" id="app-container">
+    
+    <!-- Page Header -->
+    <header class="header-wrapper">
+      <div class="avatar-container" id="profile-avatar" title="Click to change emoji">
+        💜
+      </div>
+      
+      <div class="header-content">
+        <div class="header-title-section">
+          <h1 id="page-title" contenteditable="true" spellcheck="false">Weekly Planner & Habit Tracker</h1>
+          <p id="current-week-display">Loading current week dates...</p>
+        </div>
+        
+        <div class="header-actions">
+          <button class="btn btn-primary" id="btn-add-habit-modal">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Add Habit
+          </button>
+          
+          <button class="theme-toggle-btn" id="btn-theme-toggle" aria-label="Toggle dark/light theme">
+            <!-- Sun Icon (visible in light mode) -->
+            <svg id="sun-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 7a5 5 0 100 10 5 5 0 000-10z"></path>
+            </svg>
+          </button>
+
+          <!-- User Profile & Account Dropdown -->
+          <div class="user-menu-wrapper" id="user-menu-wrapper">
+            <button class="user-profile-btn" id="btn-user-profile" aria-haspopup="true" aria-expanded="false" title="Account Menu">
+              <span class="user-profile-avatar" id="header-user-avatar">💜</span>
+              <span class="user-profile-name" id="header-user-name">Account</span>
+              <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            
+            <div class="user-dropdown-menu" id="user-dropdown-menu">
+              <div class="user-dropdown-header">
+                <div class="user-dropdown-avatar" id="dropdown-user-avatar">💜</div>
+                <div class="user-dropdown-info">
+                  <div class="user-dropdown-name" id="dropdown-user-name">User</div>
+                  <div class="user-dropdown-email" id="dropdown-user-email">user@habitask.com</div>
+                  <span class="user-badge" id="dropdown-user-badge">Free Plan</span>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" id="btn-dropdown-export" type="button">
+                <span class="dropdown-icon">💾</span>
+                <span>Export Data (.json backup)</span>
+              </button>
+              <label class="dropdown-item" id="label-dropdown-import" for="input-import-file">
+                <span class="dropdown-icon">📂</span>
+                <span>Import Data Backup</span>
+                <input type="file" id="input-import-file" accept=".json" style="display: none;">
+              </label>
+              <button class="dropdown-item" id="btn-dropdown-switch" type="button">
+                <span class="dropdown-icon">🔄</span>
+                <span>Switch Account</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item dropdown-item-danger" id="btn-dropdown-logout" type="button">
+                <span class="dropdown-icon">🚪</span>
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Callout Box (Motivational Quote) -->
+    <section class="callout-card" id="quote-callout">
+      <span class="callout-icon" id="quote-emoji">✨</span>
+      <div class="callout-text" id="quote-text" contenteditable="true" spellcheck="false">
+        "Small daily improvements over time lead to stunning results. Start tracking your progress today."
+      </div>
+    </section>
+
+    <!-- Stats Banner Dashboard -->
+    <section class="metrics-grid" id="stats-dashboard">
+      <!-- Habit Completion Metric -->
+      <div class="metric-card" id="stat-habit-progress">
+        <div class="metric-icon">🔁</div>
+        <div class="metric-info">
+          <h3 id="stat-habit-rate">0%</h3>
+          <p>Habit Completion</p>
+        </div>
+      </div>
+      
+      <!-- Weekly Tasks Completion Metric -->
+      <div class="metric-card" id="stat-tasks-progress">
+        <div class="metric-icon">✓</div>
+        <div class="metric-info">
+          <h3 id="stat-tasks-rate">0%</h3>
+          <p>Tasks Completed</p>
+        </div>
+      </div>
+      
+      <!-- Current Streak Metric -->
+      <div class="metric-card" id="stat-habit-streak">
+        <div class="metric-icon">🔥</div>
+        <div class="metric-info">
+          <h3 id="stat-streak-count">0 Days</h3>
+          <p>Best Habit Streak</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Main Grid -->
+    <main class="dashboard-grid">
+      
+      <!-- Left Column: Weekly Goals & Tools -->
+      <aside class="dashboard-sidebar">
+        
+        <!-- Weekly Goals Card -->
+        <section class="panel" id="panel-weekly-goals">
+          <div class="panel-header">
+            <h2 class="panel-title">🎯 Weekly Goals</h2>
+          </div>
+          <p class="panel-subtitle">Key focuses for this week</p>
+          
+          <div class="goals-list" id="weekly-goals-container">
+            <!-- Goals items loaded dynamically by JavaScript -->
+          </div>
+          
+          <form class="add-goal-form" id="form-add-goal">
+            <input type="text" class="input-field" id="input-goal-title" placeholder="Define a new goal..." required autocomplete="off">
+            <button type="submit" class="btn btn-primary btn-icon-only" aria-label="Add goal" id="btn-add-goal">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path>
+              </svg>
+            </button>
+          </form>
+        </section>
+
+        <!-- Mini Calendar widget -->
+        <section class="panel" id="panel-mini-calendar" style="margin-top: 24px;">
+          <div class="panel-header">
+            <h2 class="panel-title">📅 Calendar</h2>
+          </div>
+          <p class="panel-subtitle">Weekly rolling task loads</p>
+          
+          <div id="mini-calendar-container">
+            <!-- Calendar rows generated dynamically by app.js -->
+          </div>
+        </section>
+      </aside>
+
+      <!-- Right Column: Habits & Daily Task Planner -->
+      <section class="dashboard-main-content">
+        
+        <!-- Habit Tracker Grid Card -->
+        <article class="panel" id="panel-habit-tracker">
+          <div class="panel-header">
+            <h2 class="panel-title">💜 Weekly Habit Tracker</h2>
+          </div>
+          <p class="panel-subtitle">Check off habits daily to build streaks</p>
+          
+          <div class="habits-table-container">
+            <table class="habits-table" id="habits-table-el">
+              <thead>
+                <tr>
+                  <th>Habit</th>
+                  <th>Mon</th>
+                  <th>Tue</th>
+                  <th>Wed</th>
+                  <th>Thu</th>
+                  <th>Fri</th>
+                  <th>Sat</th>
+                  <th>Sun</th>
+                  <th>%</th>
+                </tr>
+              </thead>
+              <tbody id="habits-table-body">
+                <!-- Habit rows rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <!-- Daily Task Planner & Planner Card -->
+        <article class="panel" id="panel-task-planner" style="margin-top: 24px;">
+          <div class="panel-header">
+            <h2 class="panel-title" id="selected-day-heading">📝 Daily Planner - Monday</h2>
+          </div>
+          
+          <!-- Days of Week Selector Tabs -->
+          <div class="days-tabs-wrapper" id="days-selector-tabs">
+            <button class="day-tab active" data-day="Mon" id="tab-mon">
+              <span class="day-label-short">Mon</span>
+              <span class="day-label-count" id="count-Mon">0</span>
+            </button>
+            <button class="day-tab" data-day="Tue" id="tab-tue">
+              <span class="day-label-short">Tue</span>
+              <span class="day-label-count" id="count-Tue">0</span>
+            </button>
+            <button class="day-tab" data-day="Wed" id="tab-wed">
+              <span class="day-label-short">Wed</span>
+              <span class="day-label-count" id="count-Wed">0</span>
+            </button>
+            <button class="day-tab" data-day="Thu" id="tab-thu">
+              <span class="day-label-short">Thu</span>
+              <span class="day-label-count" id="count-Thu">0</span>
+            </button>
+            <button class="day-tab" data-day="Fri" id="tab-fri">
+              <span class="day-label-short">Fri</span>
+              <span class="day-label-count" id="count-Fri">0</span>
+            </button>
+            <button class="day-tab" data-day="Sat" id="tab-sat">
+              <span class="day-label-short">Sat</span>
+              <span class="day-label-count" id="count-Sat">0</span>
+            </button>
+            <button class="day-tab" data-day="Sun" id="tab-sun">
+              <span class="day-label-short">Sun</span>
+              <span class="day-label-count" id="count-Sun">0</span>
+            </button>
+          </div>
+
+          <!-- Add Task Form -->
+          <form class="task-form" id="form-add-task">
+            <input type="text" class="input-field" id="input-task-title" placeholder="Add a new task..." required autocomplete="off">
+            <select class="priority-select" id="select-task-priority" aria-label="Task Priority">
+              <option value="low">Low Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="high">High Priority</option>
+            </select>
+            <button type="submit" class="btn btn-primary" id="btn-add-task">Add Task</button>
+          </form>
+
+          <!-- Filters -->
+          <div class="filters-bar" id="tasks-filters">
+            <button class="filter-btn active" data-filter="all" id="filter-all">All Tasks</button>
+            <button class="filter-btn" data-filter="pending" id="filter-pending">Pending</button>
+            <button class="filter-btn" data-filter="completed" id="filter-completed">Completed</button>
+            <button class="filter-btn" data-filter="high" id="filter-high">High Priority</button>
+          </div>
+
+          <!-- Planner To-Do Items List -->
+          <div class="tasks-list" id="planner-tasks-container">
+            <!-- Dynamic task list item nodes -->
+          </div>
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Add Habit Modal Dialog -->
+  <div class="modal-overlay" id="habit-modal-overlay">
+    <div class="modal" id="habit-modal">
+      <div class="modal-header">
+        <h2>✨ Add New Habit</h2>
+        <button class="modal-close-btn" id="btn-close-habit-modal" aria-label="Close modal">&times;</button>
+      </div>
+      
+      <form id="form-add-habit">
+        <div class="form-group">
+          <label for="input-habit-name">Habit Name</label>
+          <input type="text" class="input-field" id="input-habit-name" placeholder="e.g. Meditate, Drink Water" required autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+          <label for="input-habit-emoji">Habit Emoji / Icon</label>
+          <input type="text" class="input-field" id="input-habit-emoji" placeholder="e.g. 💧, 🧘, 📚" value="📝" required autocomplete="off">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px;">
+          <button type="button" class="btn" id="btn-cancel-habit">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-save-habit">Save Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-notification-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
